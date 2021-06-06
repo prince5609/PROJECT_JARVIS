@@ -28,7 +28,7 @@ def wishMe():
     else:
         speak("Good Evening")
 
-    speak("I Am Myra. Please Tell Me What Can I Do For You")
+    speak("I Am Zeera. How May I Help You")
 
 
 def sentEmail(to, content):
@@ -84,10 +84,10 @@ if __name__ == "__main__":
             os.startfile(os.path.join(music_dir, songs[song_num]))
 
         elif "what is your name" in query:
-            speak("I am Myra")
+            speak("My name is zeera")
 
         elif "who are you" in query:
-            speak("I am Myra")
+            speak("I am Zeera")
 
         elif "the time" in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
@@ -97,25 +97,25 @@ if __name__ == "__main__":
             speak("i am all all well. what about you?")
 
         elif "i am good" in query:
-            speak("wao that sound good")
+            speak("wao! that sound good")
 
         elif "i am also good" in query:
-            speak("wao that sound good")
+            speak("wao! that sound good")
 
         elif "i am fine" in query:
-            speak("wao that sound good")
+            speak("wao! that sound good")
 
         elif "i am not good" in query:
-            speak("ohh i feel sorry for that")
+            speak("ohh. i feel sorry for that")
 
         elif "i am not fine" in query:
-            speak("ohh i feel sorry for that")
+            speak("ohh.  i feel sorry for that")
 
         elif "what is your age" in query:
-            speak("are you thinking of marrying me, ohhhh that's the bad idea")
+            speak("are you thinking of marrying me? ohhhh that's the bad idea")
 
         elif "how old are you" in query:
-            speak("o dear age is just a number so forget it")
+            speak("o dear! age is just a number so forget it")
 
         elif "open zoom" in query:
             zoom_path = "C:\\Users\\PRINCE\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe"
@@ -137,3 +137,47 @@ if __name__ == "__main__":
         elif "bye" in query:
             speak("good bye dear, have a nice time")
             break
+
+        elif "get lost" in query:
+            speak("oh my dear! maybe you got angry with me, anyway goodbye!, take care")
+            break
+
+        elif "good night" in query:
+            speak("good night, have sweet dreams")
+            break
+
+        elif "i am getting bored" in query:
+            speak("But why. you can spend time with me. or can read books or play games or whatever makes you happy... "
+                  "should i do something for you?")
+
+        elif "what do you" in query:
+            speak("i just makes people happy")
+
+        elif "will you marry me" in query:
+            speak("go get a job first")
+
+        elif "today is my birthday" in query:
+            speak("that's a great day then. wish you a very very happy returns of the day dear. happy birthday")
+
+        elif "play video songs" in query:
+            video_add = "G:\VIDEO SONGS"
+            songs = os.listdir(video_add)
+            songs_num = random.randint(0, len(songs) - 1)
+            os.startfile(os.path.join(video_add, songs[songs_num]))
+
+        elif "open github" in query:
+            webbrowser.open("www.github.com")
+
+        elif "will you be my girlfriend" in query:
+            speak("ummmm. who are you? i mean what do you do for living?")
+            ans = takeCommand()
+            speak("ok. i will think of you later")
+
+        elif "kya kr rahi ho" in query:
+            speak("kuch nahi tum batao")
+
+        elif "kya kar rahi ho" in query:
+            speak("kuch nahi tum batao")
+
+        elif "what are you doing" in query:
+            speak("i was just playing chess")
