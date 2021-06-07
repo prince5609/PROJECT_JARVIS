@@ -9,7 +9,7 @@ import smtplib
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)  # This is inbuilt voices in our windows
+engine.setProperty('voice', voices[1].id)  # This is inbuilt voices in our windows
 
 
 def speak(audio):  # This will help to speak
@@ -28,7 +28,7 @@ def wishMe():
     else:
         speak("Good Evening")
 
-    speak("I Am Zeera. How May I Help You")
+    speak("I Am Jarvis. How May I Help You")
 
 
 def sentEmail(to, content):
@@ -40,11 +40,11 @@ def sentEmail(to, content):
     server.close()
 
 
-def takeCommand():  # It takes microphone input from user and returns string output
+def takeCommand():  # It takes microphone input from user and returns it as string output
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold = 1  # This means it will stop for 1 sec after user speak
+        r.pause_threshold = 1  # This means it will stop for 1 sec after user stop speaking
         audio = r.listen(source)
     try:
         print("Recognizing....")
@@ -84,35 +84,31 @@ if __name__ == "__main__":
             os.startfile(os.path.join(music_dir, songs[song_num]))
 
         elif "what is your name" in query:
-            speak("My name is zeera")
+            speak("My name is Jarvis")
 
         elif "who are you" in query:
-            speak("I am Zeera")
+            speak("I am Jarvis")
 
         elif "the time" in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"the time is {strTime}")
 
         elif "how are you" in query:
-            speak("i am all all well. what about you?")
-
-        elif "i am good" in query:
-            speak("wao! that sound good")
-
-        elif "i am also good" in query:
-            speak("wao! that sound good")
-
-        elif "i am fine" in query:
-            speak("wao! that sound good")
-
-        elif "i am not good" in query:
-            speak("ohh. i feel sorry for that")
-
-        elif "i am not fine" in query:
-            speak("ohh.  i feel sorry for that")
+            speak("i am all well. what about you?")
+            query = takeCommand()
+            if "i am good" in query:
+                speak("wao! that sound good")
+            elif "i am also good" in query:
+                speak("wao! that sound good")
+            elif "i am fine" in query:
+                speak("wao! that sound good")
+            elif "i am not good" in query:
+                speak("ohh. i feel bad for that")
+            elif "i am not fine" in query:
+                speak("ohh.  i feel bad for that")
 
         elif "what is your age" in query:
-            speak("are you thinking of marrying me? ohhhh that's the bad idea")
+            speak("sir i am just 25")
 
         elif "how old are you" in query:
             speak("o dear! age is just a number so forget it")
@@ -150,11 +146,11 @@ if __name__ == "__main__":
             speak("But why. you can spend time with me. or can read books or play games or whatever makes you happy... "
                   "should i do something for you?")
 
-        elif "what do you" in query:
+        elif "what do you do" in query:
             speak("i just makes people happy")
 
         elif "will you marry me" in query:
-            speak("go get a job first")
+            speak("No i am job less")
 
         elif "today is my birthday" in query:
             speak("that's a great day then. wish you a very very happy returns of the day dear. happy birthday")
@@ -168,16 +164,27 @@ if __name__ == "__main__":
         elif "open github" in query:
             webbrowser.open("www.github.com")
 
-        elif "will you be my girlfriend" in query:
-            speak("ummmm. who are you? i mean what do you do for living?")
-            ans = takeCommand()
+        elif "will you be my boyfriend" in query:
+            speak("well! who are you? i mean what do you do for living?")
+            query = takeCommand()
             speak("ok. i will think of you later")
 
-        elif "kya kr rahi ho" in query:
-            speak("kuch nahi tum batao")
+        elif "kya kr rahe ho" in query:
+            speak("kuch nahi. tum batao")
 
-        elif "kya kar rahi ho" in query:
-            speak("kuch nahi tum batao")
+        elif "kya kar rahe ho" in query:
+            speak("kuch nahi. tum batao")
 
         elif "what are you doing" in query:
-            speak("i was just playing chess")
+            speak("i was just thinking, that i were a prime minister. i would have changed the nation")
+
+        elif "i am not feeling well today" in query:
+            speak("oo i feel bad for you. have you taken your breakfast or dinner?")
+            query = takeCommand()
+            if "no" in query:
+                speak("then you should have it. may be you will start feeling good after it")
+            elif "yes" in query:
+                speak("that's really good, i think you should go for a walk than, maybe it can help!")
+
+        elif "who is prince" in query:
+            speak("well you are asking me about a lovely person, anyway he is my creator, so he is smart")
