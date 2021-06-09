@@ -9,6 +9,7 @@ import smtplib
 import requests
 from bs4 import BeautifulSoup
 import operator
+import cv2
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -17,21 +18,22 @@ engine.setProperty('voice', voices[1].id)  # This is inbuilt voices in our windo
 
 def speak(audio):  # This will help to speak
     engine.say(audio)
+    print(audio)
     engine.runAndWait()
 
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     if 12 > hour >= 0:
-        speak("Good Morning sir!")
+        speak("Good Morning")
 
-    elif 17 > hour >= 12:
-        speak("Good Afternoon sir!")
+    elif 18 > hour >= 12:
+        speak("Good Afternoon")
 
     else:
-        speak("Good Evening sir!")
+        speak("Good Evening")
 
-    speak("I Am Jarvis.")
+    speak("I Am Jarvis sir.")
     speak("How May I Help You?")
 
 
@@ -50,12 +52,13 @@ def takeCommand():  # It takes microphone input from user and returns it as stri
         print("Listening...")
         r.adjust_for_ambient_noise(source)
         r.pause_threshold = 1  # This means it will stop for 1 sec after user stop speaking
-        audio = r.listen(source)
+        audio = r.listen(source, phrase_time_limit=5)
     try:
         print("Recognizing....")
         query = r.recognize_google(audio, language='en-in')
-        print(f"user said: {query}\n")
+        print(f"user said: {query}")
     except Exception as e:
+        speak("Say That Again Please...")
         print("Say That Again Please...")
         return "None"
     return query
@@ -239,3 +242,15 @@ if __name__ == "__main__":
                     speak(eval_binary_expr(*(my_string.split())))
                 except:
                     continue
+
+            elif "open camera" in query:
+                cap = cv2.VideoCapture(0)
+                while True:
+                    ret, img = cap.read()
+                    cv2.imshow("webcam", img)
+                    k = cv2.waitKey(50)
+                    if k == 27:
+                        break
+                cap.release()
+                cv2.destroyAllWindows()
+
