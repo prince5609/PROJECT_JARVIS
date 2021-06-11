@@ -10,6 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 import operator
 import cv2
+from requests import get
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -25,15 +26,15 @@ def speak(audio):  # This will help to speak
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     if 12 > hour >= 0:
-        speak("Good Morning")
+        speak("Good Morning sir")
 
     elif 18 > hour >= 12:
-        speak("Good Afternoon")
+        speak("Good Afternoon sir")
 
     else:
-        speak("Good Evening")
+        speak("Good Evening sir")
 
-    speak("I Am Jarvis sir.")
+    speak("I Am Jarvis.")
     speak("How May I Help You?")
 
 
@@ -74,7 +75,7 @@ if __name__ == "__main__":
                 speak("Searching wikipedia for You")
                 query = query.replace("wikipedia", "")
                 results = wikipedia.summary(query, sentences=1)
-                speak("According to wikipedia")
+                speak("i found this on wikipedia")
                 print(results)
                 speak(results)
 
@@ -82,7 +83,9 @@ if __name__ == "__main__":
                 webbrowser.open("www.youtube.com")
 
             elif "open google" in query:
-                webbrowser.open("www.google.co.in")
+                speak("sir, what should i search on google?")
+                ask = takeCommand().lower
+                webbrowser.open(f"{ask}")
 
             elif "open stackoverflow" in query:
                 webbrowser.open("stackoverflow.com")
@@ -107,7 +110,7 @@ if __name__ == "__main__":
                 speak("i am all well. what about you?")
                 query = takeCommand().lower()
                 if "i am good" in query or "i am also good" in query or "i am fine" in query:
-                    speak("wao! that sound good")
+                    speak("wao! that sounds good")
 
                 elif "i am not good" in query or "i am not fine" in query:
                     speak("ohh. i feel bad for that")
@@ -133,6 +136,7 @@ if __name__ == "__main__":
                     speak("sorry yar, i am not able to send this email")
 
             elif "stop" in query:
+                speak("ok sir,  as you wish")
                 break
 
             elif "bye" in query:
@@ -164,8 +168,8 @@ if __name__ == "__main__":
             elif "play video songs" in query:
                 video_add = "G:\VIDEO SONGS"
                 songs = os.listdir(video_add)
-                songs_num = random.randint(0, len(songs) - 1)
-                os.startfile(os.path.join(video_add, songs[songs_num]))
+                songs_num = random.choice(songs)
+                os.startfile(os.path.join(video_add, songs_num))
 
             elif "open github" in query:
                 webbrowser.open("www.github.com")
@@ -175,11 +179,8 @@ if __name__ == "__main__":
                 query = takeCommand()
                 speak("ok. i will think of you later")
 
-            elif "kya kr rahe ho" in query or "kya kar rahe ho" in query:
-                speak("kuch nahi. tum batao")
-
             elif "what are you doing" in query:
-                speak("i was just thinking, that i were a prime minister. i would have changed the nation")
+                speak("i was just thinking, that achche. din. kaab. ayenge")
 
             elif "i am not feeling well today" in query:
                 speak("oo i feel bad for you. have you taken your breakfast or dinner?")
@@ -204,10 +205,12 @@ if __name__ == "__main__":
                 r = requests.get(url)
                 data = BeautifulSoup(r.text, "html.parser")
                 temp = data.find("div", class_="BNeawe").text
-                speak(f"current {search} if {temp}")
+                speak(f"current {search} is {temp}")
 
             elif "thank you" in query:
                 speak("your most welcome sir")
+                speak("if you need me again then please call me")
+                break
 
             elif "google" in query:
                 url = f"http://www.google.com/search?q={query}"
@@ -253,4 +256,8 @@ if __name__ == "__main__":
                         break
                 cap.release()
                 cv2.destroyAllWindows()
+
+            elif "ip address" in query:
+                ip = get("https://api.ipify.org").text
+                speak(f"your ip address is {ip}")
 
